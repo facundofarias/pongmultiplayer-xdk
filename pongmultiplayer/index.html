@@ -69,6 +69,7 @@ $(document).ready(function() {
     var leftDown = false;
     var radius;
     var paddlexAI;
+    var startX;
     
     var canvas = document.getElementById( 'myCanvas' );
     
@@ -90,20 +91,27 @@ $(document).ready(function() {
     
     $(document).keydown(onKeyDown);
     $(document).keyup(onKeyUp);
+        
+    $(document).bind('touchstart', function(event) {
+        var e = event.originalEvent;
+        startX = e.targetTouches[0].clientX;
+    });
     
-    $(document).on( "swipeleft", swipeleftHandler );
-    function swipeleftHandler( event ){
-        rightDown = false;
-        leftDown = true;
-        setTimeout(function(){leftDown = false;},300);
-    }
+    $(document).bind('touchmove', function(event) {
+        var e = event.originalEvent;
+        if (startX > e.targetTouches[0].clientX) {
+            //Sliding to the left
+            leftDown = true; rightDown = false;
+        } else {
+            //Sliding to the right
+            leftDown = false; rightDown = true;
+        }
+    });
     
-    $(document).on( "swiperight", swiperightHandler );
-    function swiperightHandler( event ){
-        rightDown = true;
-        leftDown = false;
-        setTimeout(function(){rightDown = false;},300);
-    }
+    $(document).bind('touchend', function(event) {
+        leftDown = false; rightDown = false;
+    });
+    
 
     function init_paddles() {
         paddlex = WIDTH / 2;
