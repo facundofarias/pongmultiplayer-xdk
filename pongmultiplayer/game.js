@@ -283,7 +283,7 @@ $(document).ready(function() {
 						+ "return false;\" data-role=\"button\" data-rel=\"back\">Close</a>");
 				dlg.append(content);
 				dlg.appendTo($.mobile.pageContainer);
-				$.mobile.changePage(dlg, { role: "dialog" });
+				//$.mobile.changePage(dlg, { role: "dialog" });
 				
               init();
             }
