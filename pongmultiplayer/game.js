@@ -245,7 +245,7 @@ $(document).ready(function() {
             if (x <= paddlexAI || x >= paddlexAI + paddlew) {
                 clearInterval(intervalId);
                 //alert('You WIN ! :)');
-				
+				ptsp1 = ptsp1 = 1
 				// Show a dialog
 				var dlg = $("<div />").attr("data-role", "dialog").attr("id", "dialog");
 				var content = $("<div />").attr("data-role", "content").append($("<span />").html("You WIN ! :)"));
@@ -274,7 +274,8 @@ $(document).ready(function() {
                
             else {
               clearInterval(intervalId);
-              //alert('You Lose ! :(');
+				ptsp2 = ptsp2 = 1;
+			  //alert('You Lose ! :(');
             
 				// Show a dialog
 				var dlg = $("<div />").attr("data-role", "dialog").attr("id", "dialog");
