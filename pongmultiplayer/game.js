@@ -202,6 +202,17 @@ $(document).ready(function() {
     
     //END LIBRARY CODE
 
+    function showDialog(message) {
+        // Show a dialog
+        var dlg = $("<div />").attr("data-role", "dialog").attr("id", "dialog");
+        var content = $("<div />").attr("data-role", "content").append($("<span />").html(message));
+        content.append("<a href=\"javascript:$('.ui-dialog').dialog('close'); " 
+                + "return false;\" data-role=\"button\" data-rel=\"back\">Close</a>");
+        dlg.append(content);
+        dlg.appendTo($.mobile.pageContainer);
+        $.mobile.changePage(dlg, { role: "dialog" });
+    }
+    
     function draw() {
           clear();
           circle(x, y, radius);
@@ -244,17 +255,7 @@ $(document).ready(function() {
             
             if (x <= paddlexAI || x >= paddlexAI + paddlew) {
                 clearInterval(intervalId);
-                //alert('You WIN ! :)');
-				
-				// Show a dialog
-				var dlg = $("<div />").attr("data-role", "dialog").attr("id", "dialog");
-				var content = $("<div />").attr("data-role", "content").append($("<span />").html("You WIN ! :)"));
-				content.append("<a href=\"javascript:$('.ui-dialog').dialog('close'); " 
-						+ "return false;\" data-role=\"button\" data-rel=\"back\">Close</a>");
-				dlg.append(content);
-				dlg.appendTo($.mobile.pageContainer);
-				$.mobile.changePage(dlg, { role: "dialog" });
-				
+				//showDialog("You WIN ! :)");
                 init();
             }
             
@@ -274,17 +275,7 @@ $(document).ready(function() {
                
             else {
               clearInterval(intervalId);
-              //alert('You Lose ! :(');
-            
-				// Show a dialog
-				var dlg = $("<div />").attr("data-role", "dialog").attr("id", "dialog");
-				var content = $("<div />").attr("data-role", "content").append($("<span />").html("You Lose ! :("));
-				content.append("<a href=\"javascript:$('.ui-dialog').dialog('close'); " 
-						+ "return false;\" data-role=\"button\" data-rel=\"back\">Close</a>");
-				dlg.append(content);
-				dlg.appendTo($.mobile.pageContainer);
-				$.mobile.changePage(dlg, { role: "dialog" });
-				
+              //showDialog("You Lose ! :(");
               init();
             }
           }
