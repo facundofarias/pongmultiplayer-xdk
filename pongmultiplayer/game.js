@@ -19,12 +19,14 @@ $(document).ready(function() {
     var radius;
     var paddlexAI;
     var startX;
+	var ptsp1=0;
+	var ptsp2=0;
     
     var canvas = document.getElementById( 'myCanvas' );
     
     // Setting canvas size
-    canvas.width = $(window).width();
-    canvas.height = $(window).height();
+    //canvas.width = $(window).width();
+    //canvas.height = $(window).height();
                     
     //set rightDown or leftDown if the right or left keys are down
     function onKeyDown(evt) {
@@ -75,7 +77,7 @@ $(document).ready(function() {
 		//paddleh = 10;
 		paddleh = canvas.height * 0.015;
         // paddlew = 75;
-		paddlew = canvas.width * 0.15;
+		paddlew = canvas.width * 0.2;
         
     }
     
@@ -99,6 +101,25 @@ $(document).ready(function() {
       init_paddles();
        
     }
+	
+	function players()	{
+		ctx.font = 'normal 16pt Arial';
+        //ctx.fontStyle = 'white';   
+        ctx.fillText('Player 1= ', 20, 60);
+        //ctx.fillStyle = 'white';
+        ctx.font = 'normal 16pt Arial';
+        ctx.fillText('Player 2= ', 190, 580);
+        //ctx.fontStyle = 'white';
+        //ctx.fillStyle = 'white';
+	}
+	
+    function scored(pts1, pts2)	{
+		ctx.font = 'bold 18pt Arial';
+		ctx.fillText(pts1, 120, 60);
+        
+        ctx.font = 'bold 18pt Arial';
+		ctx.fillText(pts2, 290, 580);
+	}
 
     function circle(x,y,r) {
       ctx.beginPath();
@@ -184,7 +205,8 @@ $(document).ready(function() {
     function draw() {
           clear();
           circle(x, y, radius);
-
+		  players();
+          scored(ptsp2,ptsp1);
           //move the paddle if left or right is currently pressed
           
           if (rightDown) {
@@ -223,6 +245,16 @@ $(document).ready(function() {
             if (x <= paddlexAI || x >= paddlexAI + paddlew) {
                 clearInterval(intervalId);
                 //alert('You WIN ! :)');
+				
+				// Show a dialog
+				var dlg = $("<div />").attr("data-role", "dialog").attr("id", "dialog");
+				var content = $("<div />").attr("data-role", "content").append($("<span />").html("You WIN ! :)"));
+				content.append("<a href=\"javascript:$('.ui-dialog').dialog('close'); " 
+						+ "return false;\" data-role=\"button\" data-rel=\"back\">Close</a>");
+				dlg.append(content);
+				dlg.appendTo($.mobile.pageContainer);
+				$.mobile.changePage(dlg, { role: "dialog" });
+				
                 init();
             }
             
@@ -243,6 +275,16 @@ $(document).ready(function() {
             else {
               clearInterval(intervalId);
               //alert('You Lose ! :(');
+            
+				// Show a dialog
+				var dlg = $("<div />").attr("data-role", "dialog").attr("id", "dialog");
+				var content = $("<div />").attr("data-role", "content").append($("<span />").html("You Lose ! :("));
+				content.append("<a href=\"javascript:$('.ui-dialog').dialog('close'); " 
+						+ "return false;\" data-role=\"button\" data-rel=\"back\">Close</a>");
+				dlg.append(content);
+				dlg.appendTo($.mobile.pageContainer);
+				$.mobile.changePage(dlg, { role: "dialog" });
+				
               init();
             }
           }
