@@ -90,6 +90,20 @@ $(document).ready(function() {
     
     $(document).keydown(onKeyDown);
     $(document).keyup(onKeyUp);
+    
+    $(document).on( "swipeleft", swipeleftHandler );
+    function swipeleftHandler( event ){
+        rightDown = false;
+        leftDown = true;
+        setTimeout(function(){leftDown = false;},300);
+    }
+    
+    $(document).on( "swiperight", swiperightHandler );
+    function swiperightHandler( event ){
+        rightDown = true;
+        leftDown = false;
+        setTimeout(function(){rightDown = false;},300);
+    }
 
     function init_paddles() {
         paddlex = WIDTH / 2;
