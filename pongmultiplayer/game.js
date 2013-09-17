@@ -256,6 +256,7 @@ $(document).ready(function() {
             if (x <= paddlexAI || x >= paddlexAI + paddlew) {
                 clearInterval(intervalId);
 				//showDialog("You WIN ! :)");
+				ptsp1 = ptsp1 = 1
                 init();
             }
             
@@ -276,6 +277,7 @@ $(document).ready(function() {
             else {
               clearInterval(intervalId);
               //showDialog("You Lose ! :(");
+		ptsp2 = ptsp2 = 1;
               init();
             }
           }
