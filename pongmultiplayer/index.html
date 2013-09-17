@@ -94,8 +94,10 @@ $(document).ready(function() {
     function init_paddles() {
         paddlex = WIDTH / 2;
         paddlexAI = paddlex;
-        paddleh = 10;
-        paddlew = 75;
+		//paddleh = 10;
+		paddleh = canvas.height * 0.015;
+        // paddlew = 75;
+		paddlew = canvas.width * 0.15;
         
     }
     
