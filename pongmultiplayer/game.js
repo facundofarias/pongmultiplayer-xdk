@@ -23,8 +23,8 @@ $(document).ready(function() {
     var canvas = document.getElementById( 'myCanvas' );
     
     // Setting canvas size
-    canvas.width = $(window).width();
-    canvas.height = $(window).height();
+    //canvas.width = $(window).width();
+    //canvas.height = $(window).height();
                     
     //set rightDown or leftDown if the right or left keys are down
     function onKeyDown(evt) {
@@ -223,6 +223,16 @@ $(document).ready(function() {
             if (x <= paddlexAI || x >= paddlexAI + paddlew) {
                 clearInterval(intervalId);
                 //alert('You WIN ! :)');
+				
+				// Show a dialog
+				var dlg = $("<div />").attr("data-role", "dialog").attr("id", "dialog");
+				var content = $("<div />").attr("data-role", "content").append($("<span />").html("You WIN ! :)"));
+				content.append("<a href=\"javascript:$('.ui-dialog').dialog('close'); " 
+						+ "return false;\" data-role=\"button\" data-rel=\"back\">Close</a>");
+				dlg.append(content);
+				dlg.appendTo($.mobile.pageContainer);
+				$.mobile.changePage(dlg, { role: "dialog" });
+				
                 init();
             }
             
@@ -243,6 +253,16 @@ $(document).ready(function() {
             else {
               clearInterval(intervalId);
               //alert('You Lose ! :(');
+            
+				// Show a dialog
+				var dlg = $("<div />").attr("data-role", "dialog").attr("id", "dialog");
+				var content = $("<div />").attr("data-role", "content").append($("<span />").html("You Lose ! :("));
+				content.append("<a href=\"javascript:$('.ui-dialog').dialog('close'); " 
+						+ "return false;\" data-role=\"button\" data-rel=\"back\">Close</a>");
+				dlg.append(content);
+				dlg.appendTo($.mobile.pageContainer);
+				$.mobile.changePage(dlg, { role: "dialog" });
+				
               init();
             }
           }
