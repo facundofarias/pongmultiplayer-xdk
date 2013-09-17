@@ -19,6 +19,8 @@ $(document).ready(function() {
     var radius;
     var paddlexAI;
     var startX;
+	var ptsp1=0;
+	var ptsp2=0;
     
     var canvas = document.getElementById( 'myCanvas' );
     
@@ -75,7 +77,7 @@ $(document).ready(function() {
 		//paddleh = 10;
 		paddleh = canvas.height * 0.015;
         // paddlew = 75;
-		paddlew = canvas.width * 0.15;
+		paddlew = canvas.width * 0.2;
         
     }
     
@@ -99,6 +101,25 @@ $(document).ready(function() {
       init_paddles();
        
     }
+	
+	function players()	{
+		ctx.font = 'normal 16pt Arial';
+        //ctx.fontStyle = 'white';   
+        ctx.fillText('Player 1= ', 20, 60);
+        //ctx.fillStyle = 'white';
+        ctx.font = 'normal 16pt Arial';
+        ctx.fillText('Player 2= ', 190, 580);
+        //ctx.fontStyle = 'white';
+        //ctx.fillStyle = 'white';
+	}
+	
+    function scored(pts1, pts2)	{
+		ctx.font = 'bold 18pt Arial';
+		ctx.fillText(pts1, 120, 60);
+        
+        ctx.font = 'bold 18pt Arial';
+		ctx.fillText(pts2, 290, 580);
+	}
 
     function circle(x,y,r) {
       ctx.beginPath();
@@ -184,7 +205,8 @@ $(document).ready(function() {
     function draw() {
           clear();
           circle(x, y, radius);
-
+		  players();
+          scored(ptsp2,ptsp1);
           //move the paddle if left or right is currently pressed
           
           if (rightDown) {
