@@ -1,3 +1,5 @@
+var player1, player2;
+
 $(document).ready(function() {  
     
     //BEGIN LIBRARY CODE
@@ -23,6 +25,7 @@ $(document).ready(function() {
 	var ptsp2=0;
     
     var canvas = document.getElementById( 'myCanvas' );
+    //cG.start(init(), alert('error'));
     
     // Setting canvas size
     //canvas.width = $(window).width();
@@ -70,7 +73,6 @@ $(document).ready(function() {
         leftDown = false; rightDown = false;
     });
     
-
     function init_paddles() {
         paddlex = WIDTH / 2;
         paddlexAI = paddlex;
@@ -81,7 +83,6 @@ $(document).ready(function() {
         
     }
     
-
     function init() {
       ctx = canvas.getContext("2d");  
       WIDTH = canvas.width;
@@ -97,18 +98,22 @@ $(document).ready(function() {
       player2LeftDown = false;
       intervalId = 0;
       
-      intervalId = setInterval(draw, 7);
+      intervalId = setInterval(draw, 10);
       init_paddles();
-       
     }
 	
-	function players()	{
+	function players(_player1, _player2)	{
+        if (_player1 == undefined) player1 = 'Player 1';
+        else player1 = _player1;
+        if (_player2 == undefined) player2 = 'Player 2';
+        else player2 = _player2;
+        
 		ctx.font = 'normal 16pt Arial';
         //ctx.fontStyle = 'white';   
-        ctx.fillText('Player 1= ', 20, 60);
+        ctx.fillText(player1 + ' = ', 20, 60);
         //ctx.fillStyle = 'white';
         ctx.font = 'normal 16pt Arial';
-        ctx.fillText('Player 2= ', 190, 580);
+        ctx.fillText(player2 + ' = ', 190, 580);
         //ctx.fontStyle = 'white';
         //ctx.fillStyle = 'white';
 	}
