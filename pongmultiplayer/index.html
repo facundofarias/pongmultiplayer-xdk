@@ -9,8 +9,10 @@
     html {overflow:hidden;}
     /*canvas, img { display:block; margin:1em auto; border:1px solid black; }*/
     canvas {overflow:hidden; background:url(images/background.jpg);background-size:100%,100%;}
-    #loginButton {position: absolute;width: 360px;left: 0;top: 41%;background: rgba(0, 0, 0, 0.5);color: rgba(51, 51, 51, 0.02);}
+    #loginButton {position: absolute;width: 360px;left: 0;top: 45%;background: rgba(0, 0, 0, 0.5);color: rgba(51, 51, 51, 0.02);}
     a.menu_links:hover{ cursor:pointer}
+    .menu-list .li {color: #fff;font-weight: 700;text-shadow: none;margin: 5px 0;}
+    .list-element {font-weight: bold;font-size: 25px;text-align: center;}
 </style>
 <!--<a class="menu_links" onclick="displayData(11,1,0,'A')" onmouseover=""> A </a>-->
 <!--Scripts-->
@@ -55,21 +57,14 @@ document.addEventListener("appMobi.device.ready",onDeviceReady,false);
 </head>
 <body>    
     <div id="loginButton">
-        <ul>
-            <li></li>            
-            <li><a class="menu_links" onmouseover=""> Login </a></li>
-            <li><a id="single" class="menu_links" onclick="singlePlayer()" onmouseover=""> Single Player </a></li>
-            <li><a class="menu_links" onmouseover=""> Multi Player </a></li>
-<!--
-            <li><div onmousedown="" onclick="loginLogout();">Login</div></li>
-            <li><div onmousedown="" onclick="singlePlayer();">Single Player</div></li>
-            <li><div onmousedown="pointer"> Multi Player</div></li>        
--->
-            <li></li>
+        <ul class="menu-list">
+<!--            <li>Login</li>-->
+            <li class="list-element" id="single" onclick="singlePlayer()">Single Player</li>
+            <li class="list-element">Multi Player</li>
         </ul>
     </div>
     <div id="playerProfile" style="display: none;"></div>
-    <canvas id="myCanvas" width="360" height="620">  
+    <canvas id="myCanvas" width="720" height="1200">  
         <!-- Real phone resolution <canvas id="myCanvas" width="720" height="1200">  -->
         <!-- Insert fallback content here -->  
     </canvas>
