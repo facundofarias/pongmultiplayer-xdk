@@ -25,15 +25,17 @@ $(document).ready(function() {
     var multiPlayer = false;
     
     var canvas = document.getElementById( 'myCanvas' );
-    var single = document.getElementById( 'single' );
-    single.addEventListener('click',singlePlayer);    
-    
-    //$('#multi').click(startMultiPlayer);
-    
+    $('#single').click(startGame);     
+    $('#multi').click(startMultiPlayer);
+
     function startMultiPlayer() {
         multiPlayer = true;
-        
-        var socket = io.connect('http://localhost:8001'); 
+        connect();
+        startGame();
+    }
+    
+    function connect() {
+        var socket = io.connect('http://10.230.59.32:8001'); 
         socket.emit('new_player');
                 
         socket.on('player_registered', function(player_id){
@@ -60,9 +62,6 @@ $(document).ready(function() {
              }
         });
         
-        intervalId = setInterval(draw, 7);
-        init_paddles();
-        $("#loginButton").hide();
     }
 
                     
@@ -141,16 +140,9 @@ $(document).ready(function() {
       intervalId = 0;       
     }
     
-    function restart() {
-        init();
-        
-        if (multiPlayer)
-            startMultiPlayer();
-        else
-            singlePlayer();
-    }
     
-	function singlePlayer(){
+	function startGame(){
+        init();
       intervalId = setInterval(draw, 7);
       init_paddles();
       $("#loginButton").hide();
@@ -313,7 +305,7 @@ $(document).ready(function() {
                 clearInterval(intervalId);
 				//showDialog("You WIN ! :)");
 				++ptsp1;
-                restart();
+                startGame();
             }
             
             else {
@@ -334,7 +326,7 @@ $(document).ready(function() {
               clearInterval(intervalId);
               //showDialog("You Lose ! :(");
 		      ++ptsp2;
-              restart();
+              startGame();
             }
           }
           
