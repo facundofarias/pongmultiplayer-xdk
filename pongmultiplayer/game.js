@@ -21,13 +21,50 @@ $(document).ready(function() {
     var startX;
 	var ptsp1=0;
 	var ptsp2=0;
+    var playerId = 0;
+    var multiPlayer = false;
     
     var canvas = document.getElementById( 'myCanvas' );
     var single = document.getElementById( 'single' );
     single.addEventListener('click',singlePlayer);    
-    // Setting canvas size
-    //canvas.width = $(window).width();
-    //canvas.height = $(window).height();
+    
+    //$('#multi').click(startMultiPlayer);
+    
+    function startMultiPlayer() {
+        multiPlayer = true;
+        
+        var socket = io.connect('http://localhost:8001'); 
+        socket.emit('new_player');
+                
+        socket.on('player_registered', function(player_id){
+            playerId = player_id;
+        });
+        
+        socket.on('key_down', function(data){
+             if (data.playerId==1) {
+                if (data.keyCode == 39) rightDown = true;
+                else if (data.keyCode == 37) leftDown = true;
+             } else if (data.playerId==2) {
+                if (data.keyCode == 39) player2RightDown = true;
+                else if (data.keyCode == 37) player2LeftDown = true; 
+             }
+        });
+        
+         socket.on('key_up', function(data){
+             if (data.playerId==1) {
+                if (data.keyCode == 39) rightDown = false;
+                else if (data.keyCode == 37) leftDown = false;
+             } else if (data.playerId==2) {
+                if (data.keyCode == 39) player2RightDown = false;
+                else if (data.keyCode == 37) player2LeftDown = false; 
+             }
+        });
+        
+        intervalId = setInterval(draw, 7);
+        init_paddles();
+        $("#loginButton").hide();
+    }
+
                     
     //set rightDown or leftDown if the right or left keys are down
     function onKeyDown(evt) {
@@ -36,7 +73,9 @@ $(document).ready(function() {
         
         else if (evt.keyCode == 83) player2RightDown = true;
         else if (evt.keyCode == 65) player2LeftDown = true;
-          
+    
+        if (multiPlayer)
+            socket.emit('key_down', {'playerId': playerId, 'keyCode': evt.keyCode });    
     }
     
     //and unset them when the right or left key is released
@@ -46,6 +85,9 @@ $(document).ready(function() {
         
         else if (evt.keyCode == 83) player2RightDown = false;
         else if (evt.keyCode == 65) player2LeftDown = false;
+        
+        if (multiPlayer)
+            socket.emit('key_up', {'playerId': playerId, 'keyCode': evt.keyCode });  
     }
     
     $(document).keydown(onKeyDown);
@@ -96,26 +138,19 @@ $(document).ready(function() {
       leftDown = false;
       player2RightDown = false;
       player2LeftDown = false;
-      intervalId = 0;
-      
-      //intervalId = setInterval(draw, 7);
-      //init_paddles();
-       
+      intervalId = 0;       
     }
+    
+    function restart() {
+        init();
+        
+        if (multiPlayer)
+            startMultiPlayer();
+        else
+            singlePlayer();
+    }
+    
 	function singlePlayer(){
-      ctx = canvas.getContext("2d");  
-      WIDTH = canvas.width;
-      HEIGHT = canvas.height;
-      x = 150;
-      y = 150;
-      dx = 2;
-      dy = 4;
-      radius = 10;
-      rightDown = false;
-      leftDown = false;
-      player2RightDown = false;
-      player2LeftDown = false;
-      intervalId = 0;    
       intervalId = setInterval(draw, 7);
       init_paddles();
       $("#loginButton").hide();
@@ -261,7 +296,8 @@ $(document).ready(function() {
                 paddlexAI -= 5;
             }
           }
-          followBallAI();
+        
+          if (!multiPlayer) followBallAI();
         
           drawSideLines();
           rect(paddlex, HEIGHT-paddleh, paddlew, paddleh);
@@ -277,7 +313,7 @@ $(document).ready(function() {
                 clearInterval(intervalId);
 				//showDialog("You WIN ! :)");
 				++ptsp1;
-                singlePlayer();
+                restart();
             }
             
             else {
@@ -298,7 +334,7 @@ $(document).ready(function() {
               clearInterval(intervalId);
               //showDialog("You Lose ! :(");
 		      ++ptsp2;
-              singlePlayer();
+              restart();
             }
           }
           
