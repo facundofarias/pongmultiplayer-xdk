@@ -25,8 +25,8 @@ $(document).ready(function() {
 	var ptsp2=0;
     
     var canvas = document.getElementById( 'myCanvas' );
-    //cG.start(init(), alert('error'));
-    
+    var single = document.getElementById( 'single' );
+    single.addEventListener('click',singlePlayer);    
     // Setting canvas size
     //canvas.width = $(window).width();
     //canvas.height = $(window).height();
@@ -98,10 +98,28 @@ $(document).ready(function() {
       player2LeftDown = false;
       intervalId = 0;
       
-      intervalId = setInterval(draw, 10);
-      init_paddles();
+      //intervalId = setInterval(draw, 7);
+      //init_paddles();
+       
     }
-	
+	function singlePlayer(){
+      ctx = canvas.getContext("2d");  
+      WIDTH = canvas.width;
+      HEIGHT = canvas.height;
+      x = 150;
+      y = 150;
+      dx = 2;
+      dy = 4;
+      radius = 10;
+      rightDown = false;
+      leftDown = false;
+      player2RightDown = false;
+      player2LeftDown = false;
+      intervalId = 0;    
+      init_paddles();
+      $("#loginButton").hide();
+    }
+    
 	function players(_player1, _player2)	{
         if (_player1 == undefined) player1 = 'Player 1';
         else player1 = _player1;
@@ -262,7 +280,7 @@ $(document).ready(function() {
                 clearInterval(intervalId);
 				//showDialog("You WIN ! :)");
 				++ptsp1;
-                init();
+                singlePlayer();
             }
             
             else {
@@ -283,7 +301,7 @@ $(document).ready(function() {
               clearInterval(intervalId);
               //showDialog("You Lose ! :(");
 		      ++ptsp2;
-              init();
+              singlePlayer();
             }
           }
           
