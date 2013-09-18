@@ -9,14 +9,20 @@
     html {overflow:hidden;}
     /*canvas, img { display:block; margin:1em auto; border:1px solid black; }*/
     canvas {overflow:hidden; background:url(images/background.jpg);background-size:100%,100%;}
+    #loginButton {position: absolute;width: 360px;left: 0;top: 41%;background: rgba(0, 0, 0, 0.5);color: rgba(51, 51, 51, 0.02);}
+    a.menu_links:hover{ cursor:pointer}
 </style>
-
-<script src='intelxdk.js'></script> 
-
+<!--<a class="menu_links" onclick="displayData(11,1,0,'A')" onmouseover=""> A </a>-->
+<!--Scripts-->
+<script src='intelxdk.js'></script>
 <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
-<script src="http://localhost:8001/socket.io/socket.io.js"></script>
 <script src="game.js"></script>
+<script src="http://cgaminglib.com/js/alpha18/cgaming.min.js"></script>
+<script src="http://cgaminglib.com/gdconf/domino/JS/intel.cloudservices.js"></script>
+<script src="cloudconductor.js"></script>    
+
+<!--CSS Definition-->
 <link href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" rel="stylesheet" type="text/css"/>
     
 <script type="text/javascript">
@@ -26,6 +32,7 @@ var init = function(){
 };
 window.addEventListener("load",init,false);  
 
+    
 /* This code prevents users from dragging the page */
 var preventDefaultScroll = function(event) {
     event.preventDefault();
@@ -42,12 +49,26 @@ var onDeviceReady=function(){
 };
 document.addEventListener("appMobi.device.ready",onDeviceReady,false); 
     
-   
 
 </script>
 
 </head>
-<body>
+<body>    
+    <div id="loginButton">
+        <ul>
+            <li></li>            
+            <li><a class="menu_links" onmouseover=""> Login </a></li>
+            <li><a id="single" class="menu_links" onclick="singlePlayer()" onmouseover=""> Single Player </a></li>
+            <li><a class="menu_links" onmouseover=""> Multi Player </a></li>
+<!--
+            <li><div onmousedown="" onclick="loginLogout();">Login</div></li>
+            <li><div onmousedown="" onclick="singlePlayer();">Single Player</div></li>
+            <li><div onmousedown="pointer"> Multi Player</div></li>        
+-->
+            <li></li>
+        </ul>
+    </div>
+    <div id="playerProfile" style="display: none;"></div>
     <canvas id="myCanvas" width="360" height="620">  
         <!-- Real phone resolution <canvas id="myCanvas" width="720" height="1200">  -->
         <!-- Insert fallback content here -->  
