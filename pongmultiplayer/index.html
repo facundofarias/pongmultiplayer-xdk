@@ -32,6 +32,7 @@ var init = function(){
 };
 window.addEventListener("load",init,false);  
 
+    
 /* This code prevents users from dragging the page */
 var preventDefaultScroll = function(event) {
     event.preventDefault();
@@ -56,14 +57,14 @@ document.addEventListener("appMobi.device.ready",onDeviceReady,false);
     <div id="loginButton">
         <ul>
             <li></li>            
+            <li><a class="menu_links" onmouseover=""> Login </a></li>
+            <li><a id="single" class="menu_links" onclick="singlePlayer()" onmouseover=""> Single Player </a></li>
+            <li><a class="menu_links" onmouseover=""> Multi Player </a></li>
 <!--
-            <li><a onmouseover=""> Login </a></li>
-            <li><a onclick="singlePlayer" onmouseover=""> Single Player </a></li>
-            <li><a onmouseover=""> Multi Player </a></li>
--->
             <li><div onmousedown="" onclick="loginLogout();">Login</div></li>
             <li><div onmousedown="" onclick="singlePlayer();">Single Player</div></li>
             <li><div onmousedown="pointer"> Multi Player</div></li>        
+-->
             <li></li>
         </ul>
     </div>
