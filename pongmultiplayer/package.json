@@ -1,0 +1,17 @@
+{
+  "name": "pong-multiplayer-xdk",
+  "main": "./server",
+  "version": "0.0.1",
+  "description": "Use mobile phones as remote controllers for Pong game.",
+  "homepage": "https://github.com/facundofarias/pongmultiplayer-xdk",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/facundofarias/pongmultiplayer-xdk"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "dependencies" : {
+    "socket.io": "0.9.x"
+  }
+}
