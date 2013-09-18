@@ -97,7 +97,7 @@ $(document).ready(function() {
       player2LeftDown = false;
       intervalId = 0;
       
-      intervalId = setInterval(draw, 10);
+      intervalId = setInterval(draw, 7);
       init_paddles();
        
     }
@@ -136,7 +136,7 @@ $(document).ready(function() {
     }
 
     function clear() {
-      ctx.clearRect(0, 0, WIDTH, HEIGHT);
+        ctx.clearRect(0, 0, WIDTH, HEIGHT);
     }
 
     function followBallAI() {
